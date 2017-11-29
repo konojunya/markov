@@ -1,4 +1,4 @@
-package main
+package salad
 
 import (
 	"bufio"
@@ -138,6 +138,7 @@ func transEnc(text string, encode string) (string, error) {
 	}
 	return string(f), nil
 }
+
 func readPipe() (string, error) {
 	stats, _ := os.Stdin.Stat()
 	if stats != nil && (stats.Mode()&os.ModeCharDevice) == 0 {
@@ -149,6 +150,7 @@ func readPipe() (string, error) {
 	}
 	return "", nil
 }
+
 func readStdin() (string, error) {
 	var text string
 	s := bufio.NewScanner(os.Stdin)
@@ -172,7 +174,7 @@ func readFileByArg(path string) (string, error) {
 	return string(content), nil
 }
 
-func main() {
+func GetTextAndCount() (string, int) {
 	var err error
 	var count int
 	var defaultEncoding string
@@ -205,9 +207,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, err.Error())
 		os.Exit(1)
 	}
-	//salad
-	h := NewSalad(text)
-	for i := 0; i < count; i++ {
-		fmt.Println(h.MakeWord())
-	}
+
+	return text, count
 }
